@@ -82,4 +82,33 @@ class TestJohnCrediteSonCompte(unittest.TestCase):
         montant_negatif = -1
         self.assertRaises(ValueError, self.account.credit, montant_negatif)
 
+
+class TestJohnCrediteMadelaine(unittest.TestCase):
+
+    def setUp(self):
+        self.accountJohn = mock() 
+        self.accountMadelaine = mock()
+        self.trans = Transfert(self.storage)
+
+    def test_debitJohn(self):
+        """verifie si le debit a bien ete effectue"""
+        amount = 10
+        self.trans.transfert(self, accountJohn, accountMadelaine, amount)
+	verify(self.storage).debit(amount)
+    
+    def test_creditMadelaine(self):
+        """verifie si le credit a bien ete effectue"""
+        amount = 10
+        self.trans.transfert(self, accountJohn, accountMadelaine, amount)
+	verify(self.storage).credit(amount)
+    
+    def test_balance_Compte_John(self, amount):
+        when(accountJohn).debit(amount).thenRaise(ValueError)
+        self.assertRaises(ValueError, self.trans.transfert(self, accountJohn, accountMadelaine, amount))
+
+    def test_un_montant_negatif_leve_une_exception(self):
+        """un montant negatif leve une exception"""
+        amount = -1
+        self.assertRaises(ValueError, self.trans.transfert(self, accountJohn, accountMadelaine, amount))
+
 # eof

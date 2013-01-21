@@ -80,5 +80,19 @@ class Account(object):
             raise ValueError(
                 "amount should be positive, received: {0}".format(amount))
 
+class Transfert(object)
+    """Transfert d'argent entre deux comptes."""
+    
+    def transfert(self, source, destination, amount):
+	""" Test si valeur est positive"""
+        self._negative_amount_raises_value_error(amount)
+  	source.debit(self, amount)
+	destination.credit(self, amount)
+
+    def _negative_amount_raises_value_error(self, amount):
+        if amount < 0:
+            raise ValueError(
+                "amount should be positive, received: {0}".format(amount))
+	
 
 # eof
